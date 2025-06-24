@@ -99,4 +99,25 @@ public class MyDodo extends Dodo
     public void practiceWithListsOfSurpriseEgss( ){
         List<SurpriseEgg>  listOfEgss = SurpriseEgg.generateListOfSurpriseEggs( 12, getWorld() );
     }
+    
+    public void moveRandomly(){
+        for (; myNrOfStepsTaken < Mauritius.MAXSTEPS; myNrOfStepsTaken++) {
+            do{
+                faceDirection(randomDirection());
+            } while (borderAhead() || fenceAhead());
+            move();
+        }
+    }
+    
+    /**
+     * Faces in the direction that is given
+     */
+    public void faceDirection(int direction){
+        if (direction < NORTH || direction > WEST){
+            return;
+        }
+        while (getDirection() != direction) {
+            turnRight();
+        }
+    }
 }
