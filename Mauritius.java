@@ -65,8 +65,7 @@ public class Mauritius extends World
         setPaintOrder (Message.class, Scoreboard.class, Dodo.class, Grain.class,
                        Nest.class, Egg.class, Fence.class);        
         populate();
-        // remove comment if you want to add a scoreboard
-        // addScoreboard();
+        addScoreboard();
     }
 
     public static void traceOn() {

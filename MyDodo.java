@@ -12,7 +12,7 @@ public class MyDodo extends Dodo
 {
     /* ATTRIBUTE DECLARATIONS: */
     private int myNrOfStepsTaken;
-           
+
     public MyDodo() {
         super( EAST );
         /* INITIALISATION OF ATTRIBUTES: */
@@ -75,18 +75,17 @@ public class MyDodo extends Dodo
     }
 
     /**
-    * Places all the Egg objects in the world in a list.
-    * 
-    * @return List of Egg objects in the world
-    */
+     * Places all the Egg objects in the world in a list.
+     * 
+     * @return List of Egg objects in the world
+     */
     public List<Egg> getListOfEggsInWorld() {
         return getWorld().getObjects(Egg.class);
     }
-    
+
     public List<Integer> createListOfNumbers() {
         return new ArrayList<> (Arrays.asList( 2, 43, 7, -5, 12, 7 ));
     }
-    
 
     /**
      * Method for praciticing with lists.
@@ -99,16 +98,23 @@ public class MyDodo extends Dodo
     public void practiceWithListsOfSurpriseEgss( ){
         List<SurpriseEgg>  listOfEgss = SurpriseEgg.generateListOfSurpriseEggs( 12, getWorld() );
     }
-    
+
     public void moveRandomly(){
+
+        Mauritius world = (Mauritius) getWorld();
         for (; myNrOfStepsTaken < Mauritius.MAXSTEPS; myNrOfStepsTaken++) {
-            do{
+            world.updateScore(Mauritius.MAXSTEPS - myNrOfStepsTaken);
+            do {
                 faceDirection(randomDirection());
             } while (borderAhead() || fenceAhead());
+
             move();
+
+
         }
+        world.updateScore(Mauritius.MAXSTEPS - myNrOfStepsTaken);
     }
-    
+
     /**
      * Faces in the direction that is given
      */
