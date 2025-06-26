@@ -13,6 +13,8 @@ public class MyDodo extends Dodo
     /* ATTRIBUTE DECLARATIONS: */
     private int myNrOfStepsTaken;
 
+    private int score;
+
     public MyDodo() {
         super( EAST );
         /* INITIALISATION OF ATTRIBUTES: */
@@ -34,8 +36,10 @@ public class MyDodo extends Dodo
     public void move() {
         if ( canMove() ) {
             step();
+            myNrOfStepsTaken++;
+            updateScore();
         } else {
-            showError( "I'm stuck!" );
+            showError("I cannot move");
         }
     }
 
@@ -51,7 +55,7 @@ public class MyDodo extends Dodo
      *                      there is an obstruction or end of world ahead
      */
     public boolean canMove() {
-        if ( borderAhead() || fenceAhead() ){
+        if ( borderAhead() || fenceAhead() || Mauritius.MAXSTEPS <= myNrOfStepsTaken ) {
             return false;
         } else {
             return true;
@@ -110,7 +114,6 @@ public class MyDodo extends Dodo
 
             move();
 
-
         }
         world.updateScore(Mauritius.MAXSTEPS - myNrOfStepsTaken);
     }
@@ -125,5 +128,78 @@ public class MyDodo extends Dodo
         while (getDirection() != direction) {
             turnRight();
         }
+    }
+
+    public void collectEggs(){
+
+        Egg egg = getNearestEgg();
+
+        while (egg != null) {
+            
+            goToEgg(egg);
+            
+            if (Mauritius.MAXSTEPS <= myNrOfStepsTaken) {
+                break;
+            }
+            
+            score += egg.getValue();
+            pickUpEgg();
+
+            egg = getNearestEgg();
+        }
+
+    }
+
+    public Egg getNearestEgg(){
+
+        List<Egg> eggs = getWorld().getObjects(Egg.class);
+
+        Egg nearestEgg = null;
+        int nearestDistance = Integer.MAX_VALUE;
+
+        for (Egg egg : eggs) {
+
+            int xDistance = Math.abs(egg.getX() - getX());
+            int yDistance = Math.abs(egg.getY() - getY());
+            int totalDistance = xDistance + yDistance;
+
+            if (totalDistance < nearestDistance) {
+
+                nearestEgg = egg;
+                nearestDistance = totalDistance;
+            }
+        } 
+        return nearestEgg;  
+    } 
+
+    public void goToEgg(Egg egg){
+
+        int eggX = egg.getX();
+        int eggY = egg.getY();
+
+        if (getX() <= eggX) {
+            faceDirection(EAST);
+        } else {
+            faceDirection(WEST);
+        }
+
+        while (eggX != getX() && canMove()) {
+            move();
+        }
+
+        if (getY() <= eggY) {
+            faceDirection(SOUTH);
+        } else {
+            faceDirection(NORTH);
+        }
+
+        while (eggY != getY() && canMove()) {
+            move();
+        }
+    }
+    
+    public void updateScore(){
+        Mauritius world = (Mauritius) getWorld();
+        world.updateScore(Mauritius.MAXSTEPS - myNrOfStepsTaken, score);
     }
 }
