@@ -109,7 +109,7 @@ public class MyDodo extends Dodo
     }
     
     /**
-     * Dodo moves 40 random spaces, it changes direction after each move.
+     * Dodo moves 40 random spaces, it changes direction after each move he did.
      */
     public void moveRandomly(){
 
@@ -127,7 +127,7 @@ public class MyDodo extends Dodo
     }
 
     /**
-     * Faces in the direction that is given.
+     * Faces in the direction that is given by the user.
      */
     public void faceDirection(int direction){
         if (direction < NORTH || direction > WEST){
@@ -138,7 +138,7 @@ public class MyDodo extends Dodo
         }
     }
     /**
-     * He first goes to the nearest egg, then he picks it up, then he goes to another nearest egg and collects it. This all happens in the max moves of 40.
+     * He first goes to the nearest egg, then he picks it up. After he picks it up he goes to another nearest egg and collects it. This all happens in the max moves of 40.
      */
     public void collectEggs(){
 
@@ -160,7 +160,7 @@ public class MyDodo extends Dodo
 
     }
     /**
-     * Prints out which egg is the closest.
+     * Prints out which egg is the closest to dodo.
      */
     public Egg getNearestEgg(){
 
@@ -184,7 +184,7 @@ public class MyDodo extends Dodo
         return nearestEgg;  
     } 
     /**
-     * goes to an egg.
+     * Dodo goes to an egg.
      */
     public void goToEgg(Egg egg){
 
@@ -212,7 +212,7 @@ public class MyDodo extends Dodo
         }
     }
     /**
-     * Updates the score of the leaderboard. It updates the moves left and what dodo's score is.
+     * Updates the score of the leaderboard. It updates the moves left after a move and what dodo's score is after picking up an egg.
      */
     public void updateScore(){
         Mauritius world = (Mauritius) getWorld();
