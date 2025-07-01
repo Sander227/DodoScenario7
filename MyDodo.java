@@ -86,7 +86,10 @@ public class MyDodo extends Dodo
     public List<Egg> getListOfEggsInWorld() {
         return getWorld().getObjects(Egg.class);
     }
-
+    
+    /**
+     * Creates a list of numbers
+     */
     public List<Integer> createListOfNumbers() {
         return new ArrayList<> (Arrays.asList( 2, 43, 7, -5, 12, 7 ));
     }
@@ -98,11 +101,16 @@ public class MyDodo extends Dodo
         List<Integer> listOfNumbers = createListOfNumbers();
         System.out.println("First element: " + listOfNumbers.get(1) ); 
     }
-
+    /**
+     * Randomly puts 12 surprise eggs in the world.
+     */
     public void practiceWithListsOfSurpriseEgss( ){
         List<SurpriseEgg>  listOfEgss = SurpriseEgg.generateListOfSurpriseEggs( 12, getWorld() );
     }
-
+    
+    /**
+     * Dodo moves 40 random spaces, it changes direction after each move.
+     */
     public void moveRandomly(){
 
         Mauritius world = (Mauritius) getWorld();
@@ -119,7 +127,7 @@ public class MyDodo extends Dodo
     }
 
     /**
-     * Faces in the direction that is given
+     * Faces in the direction that is given.
      */
     public void faceDirection(int direction){
         if (direction < NORTH || direction > WEST){
@@ -129,11 +137,13 @@ public class MyDodo extends Dodo
             turnRight();
         }
     }
-
+    /**
+     * He first goes to the nearest egg, then he picks it up, then he goes to another nearest egg and collects it. This all happens in the max moves of 40.
+     */
     public void collectEggs(){
 
         Egg egg = getNearestEgg();
-
+        
         while (egg != null) {
             
             goToEgg(egg);
@@ -149,7 +159,9 @@ public class MyDodo extends Dodo
         }
 
     }
-
+    /**
+     * Prints out which egg is the closest.
+     */
     public Egg getNearestEgg(){
 
         List<Egg> eggs = getWorld().getObjects(Egg.class);
@@ -171,7 +183,9 @@ public class MyDodo extends Dodo
         } 
         return nearestEgg;  
     } 
-
+    /**
+     * goes to an egg.
+     */
     public void goToEgg(Egg egg){
 
         int eggX = egg.getX();
@@ -197,7 +211,9 @@ public class MyDodo extends Dodo
             move();
         }
     }
-    
+    /**
+     * Updates the score of the leaderboard. It updates the moves left and what dodo's score is.
+     */
     public void updateScore(){
         Mauritius world = (Mauritius) getWorld();
         world.updateScore(Mauritius.MAXSTEPS - myNrOfStepsTaken, score);
